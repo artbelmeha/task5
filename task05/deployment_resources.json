@@ -36,8 +36,8 @@
     "resource_type": "dynamodb_table",
     "hash_key_name": "id",
     "hash_key_type": "S",
-    "read_capacity": 1,
-    "write_capacity": 1,
+    "read_capacity": 4,
+    "write_capacity": 4,
     "stream_view_type": "NEW_IMAGE"
   },
   "task5_api": {

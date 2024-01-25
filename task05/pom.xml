@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>1.12.91</version>
+            <version>1.12.640</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -44,11 +44,6 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
             <version>2.23.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.11.3</version>
         </dependency>
     </dependencies>
 

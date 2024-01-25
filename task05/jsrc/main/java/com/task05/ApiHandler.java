@@ -1,14 +1,14 @@
 package com.task05;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.*;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -22,40 +22,37 @@ public class ApiHandler implements RequestHandler<Map<String, Object>, Map<Strin
 
 	@Override
 	public Map<String, Object> handleRequest(Map<String, Object> input, Context context) {
-		DynamoDbClient dynamodb = DynamoDbClient.builder()
-				.region(Region.EU_CENTRAL_1)
-				.build();
+		int principalId = (Integer) input.get("principalId");
+		Map<String, String> content = (Map<String, String>) input.get("content");
+		String createdAt = java.time.ZonedDateTime.now().toString();
 
-		String uuid = UUID.randomUUID().toString();
-		PutItemRequest request = PutItemRequest.builder()
-				.tableName("Events")
-				.item(createEventItem(uuid, input))
-				.build();
+		String id = UUID.randomUUID().toString();
 
-		dynamodb.putItem(request);
+		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
+		DynamoDB dynamoDB = new DynamoDB(client);
+
+		Table table = dynamoDB.getTable("Events");
+
+		Item item = new Item()
+				.withPrimaryKey("id", id)
+				.withNumber("principalId", principalId)
+				.withString("createdAt", createdAt)
+				.withMap("body", content);
+
+		PutItemOutcome putItemOutcome = table.putItem(item);
+
+
+		Map<String, Object> event = new HashMap<>();
+		event.put("id", id);
+		event.put("principalId", principalId);
+		event.put("createdAt", createdAt);
+		event.put("body", content);
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("statusCode", 201);
-		response.put("event", input);
-		input.put("id", uuid);
-		input.put("createdAt", LocalDateTime.now().toString());
+		response.put("event", event);
+		response.put("err", putItemOutcome);
+
 		return response;
-	}
-
-	private Map<String, AttributeValue> createEventItem(String uuid, Map<String, Object> input) {
-		Map<String, AttributeValue> item = new HashMap<>();
-		item.put("id", AttributeValue.builder().s(uuid).build());
-		item.put("principalId", AttributeValue.builder().n(input.get("principalId").toString()).build());
-		item.put("createdAt", AttributeValue.builder().s(LocalDateTime.now().toString()).build());
-
-		Map<String, AttributeValue> contentMap = new HashMap<>();
-
-		((Map<String, String>) input.get("content")).forEach((key, value) -> {
-			contentMap.put(key, AttributeValue.builder().s(value).build());
-		});
-
-		item.put("body", AttributeValue.builder().m(contentMap).build());
-
-		return item;
 	}
 }
