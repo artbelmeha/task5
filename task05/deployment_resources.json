@@ -11,10 +11,7 @@
             "dynamodb:Query",
             "dynamodb:PutItem",
             "dynamodb:Batch*",
-            "dynamodb:DeleteItem",
-            "ssm:PutParameter",
-            "ssm:GetParameter",
-            "kms:Decrypt"
+            "dynamodb:DeleteItem"
           ],
           "Effect": "Allow",
           "Resource": "*"
