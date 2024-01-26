@@ -11,6 +11,7 @@
             "dynamodb:Query",
             "dynamodb:PutItem",
             "dynamodb:Batch*",
+            "dynamodb:UpdateItem",
             "dynamodb:DeleteItem"
           ],
           "Effect": "Allow",
@@ -36,8 +37,14 @@
     "resource_type": "dynamodb_table",
     "hash_key_name": "id",
     "hash_key_type": "S",
-    "read_capacity": 4,
-    "write_capacity": 4
+    "read_capacity": 5,
+    "write_capacity":5,
+    "ranges": [
+      {
+        "range_key": "createdAt",
+        "range_key_type": "S"
+      }
+    ]
   },
   "task5_api": {
     "deploy_stage": "api",
