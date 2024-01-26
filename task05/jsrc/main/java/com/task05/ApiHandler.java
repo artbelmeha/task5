@@ -14,9 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @LambdaHandler(lambdaName = "api_handler",
-	roleName = "api_handler-role",
-	isPublishVersion = true,
-	aliasName = "${lambdas_alias_name}"
+	roleName = "api_handler-role"
 )
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
@@ -38,7 +36,6 @@ public class ApiHandler implements RequestHandler<Map<String, Object>, Map<Strin
 				.withNumber("principalId", principalId)
 				.withString("createdAt", createdAt)
 				.withMap("body", content);
-
 		PutItemOutcome putItemOutcome = table.putItem(item);
 
 
