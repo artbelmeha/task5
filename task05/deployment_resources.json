@@ -37,8 +37,7 @@
     "hash_key_name": "id",
     "hash_key_type": "S",
     "read_capacity": 4,
-    "write_capacity": 4,
-    "stream_view_type": "NEW_IMAGE"
+    "write_capacity": 4
   },
   "task5_api": {
     "deploy_stage": "api",
