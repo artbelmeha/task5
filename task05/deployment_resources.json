@@ -44,7 +44,7 @@
     ],
     "resources": {
       "/events": {
-        "enable_cors": false,
+        "enable_cors": true,
         "POST": {
           "integration_type": "lambda",
           "lambda_name": "api_handler",
@@ -57,7 +57,8 @@
           "integration_responses": [],
           "default_error_pattern": true
         }
-      }
+      },
+      "resource_type": "api_gateway"
     },
     "Events": {
       "resource_type": "dynamodb_table",

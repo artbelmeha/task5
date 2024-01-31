@@ -20,10 +20,6 @@ import java.util.stream.Collectors;
 	roleName = "api_handler-role"
 )
 
-@LambdaUrlConfig(
-		authType = AuthType.NONE,
-		invokeMode = InvokeMode.BUFFERED
-)
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 	private final AmazonDynamoDB dynamoDB;
 
