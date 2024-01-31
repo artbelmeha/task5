@@ -6,10 +6,8 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.syndicate.deployment.annotations.LambdaUrlConfig;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
-import com.syndicate.deployment.model.lambda.url.AuthType;
-import com.syndicate.deployment.model.lambda.url.InvokeMode;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,7 +50,7 @@ public class ApiHandler implements RequestHandler<Map<String, Object>, Map<Strin
 		Map<String, String> content = (Map<String, String>) input.get("content");
 		item.put("id", new AttributeValue(UUID.randomUUID().toString()));
 		item.put("principalId", new AttributeValue().withN((String)input.get("principalId")));
-		item.put("createdAt", new AttributeValue().withS(java.time.ZonedDateTime.now().toString()));
+		item.put("createdAt", new AttributeValue().withS(java.time.ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT)));
 		item.put("body", new AttributeValue().withM(content.entrySet()
 						.stream()
 						.collect(Collectors.toMap(Entry::getKey, e->new AttributeValue(e.getValue())))));
