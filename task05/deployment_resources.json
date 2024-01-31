@@ -41,7 +41,8 @@
         "resource_name": "api_handler",
         "resource_type": "lambda"
       }
-    ],
+    ]
+  },
     "resources": {
       "/events": {
         "enable_cors": true,
@@ -58,8 +59,7 @@
           "default_error_pattern": true
         }
       }
-    }
-  },
+    },
     "Events": {
       "resource_type": "dynamodb_table",
       "hash_key_name": "id",
