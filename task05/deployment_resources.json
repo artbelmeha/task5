@@ -58,7 +58,8 @@
           "default_error_pattern": true
         }
       }
-    },
+    }
+  },
     "Events": {
       "resource_type": "dynamodb_table",
       "hash_key_name": "id",
@@ -68,5 +69,4 @@
       "global_indexes": [],
       "autoscaling": []
     }
-  }
 }
