@@ -64,9 +64,21 @@
       "resource_type": "dynamodb_table",
       "hash_key_name": "id",
       "hash_key_type": "S",
-      "read_capacity": 1,
-      "write_capacity":1,
-      "global_indexes": [],
-      "autoscaling": []
+      "read_capacity": 5,
+      "write_capacity": 5,
+      "attributes": [
+        {
+          "name": "principalId",
+          "type": "N"
+        },
+        {
+          "name": "createdAt",
+          "type": "S"
+        },
+        {
+          "name": "body",
+          "type": "S"
+        }
+      ]
     }
 }
