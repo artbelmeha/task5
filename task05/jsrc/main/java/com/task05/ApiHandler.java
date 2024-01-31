@@ -36,7 +36,7 @@ public class ApiHandler implements RequestHandler<Map<String, Object>, Map<Strin
 	public Map<String, Object> handleRequest(Map<String, Object> input, Context context) {
 
 		Map<String, AttributeValue> item = getObject(input);
-		PutItemRequest putItemRequest = new PutItemRequest("Events", item);
+		PutItemRequest putItemRequest = new PutItemRequest("cmtr-76c36f18-Events-test", item);
 		dynamoDB.putItem(putItemRequest);
 
 		Map<String, Object> event = new HashMap<>();
