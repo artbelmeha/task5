@@ -33,18 +33,14 @@
       "${account_id}"
     ]
   },
-  "{target_table}": {
+  "Events": {
     "resource_type": "dynamodb_table",
     "hash_key_name": "id",
     "hash_key_type": "S",
-    "read_capacity": 5,
-    "write_capacity":5,
-    "ranges": [
-      {
-        "range_key": "createdAt",
-        "range_key_type": "S"
-      }
-    ]
+    "read_capacity": 1,
+    "write_capacity":1,
+    "global_indexes": [],
+    "autoscaling": []
   },
   "task5_api": {
     "deploy_stage": "api",
@@ -57,11 +53,18 @@
     ],
     "resources": {
       "/events": {
-        "enable_cors": true,
+        "enable_cors": false,
         "POST": {
           "integration_type": "lambda",
           "lambda_name": "api_handler",
-          "authorization_type": "NONE"
+          "authorization_type": "NONE",
+          "api_key_required": false,
+          "enable_proxy": true,
+          "method_request_parameters": {},
+          "integration_request_body_template": {},
+          "responses": [],
+          "integration_responses": [],
+          "default_error_pattern": true
         }
       }
     }
