@@ -6,7 +6,10 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.syndicate.deployment.annotations.LambdaUrlConfig;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
+import com.syndicate.deployment.model.lambda.url.AuthType;
+import com.syndicate.deployment.model.lambda.url.InvokeMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,6 +18,11 @@ import java.util.stream.Collectors;
 
 @LambdaHandler(lambdaName = "api_handler",
 	roleName = "api_handler-role"
+)
+
+@LambdaUrlConfig(
+		authType = AuthType.NONE,
+		invokeMode = InvokeMode.BUFFERED
 )
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 	private final AmazonDynamoDB dynamoDB;
@@ -28,7 +36,7 @@ public class ApiHandler implements RequestHandler<Map<String, Object>, Map<Strin
 	public Map<String, Object> handleRequest(Map<String, Object> input, Context context) {
 
 		Map<String, AttributeValue> item = getObject(input);
-		PutItemRequest putItemRequest = new PutItemRequest("cmtr-76c36f18-Events-test", item);
+		PutItemRequest putItemRequest = new PutItemRequest("Events", item);
 		dynamoDB.putItem(putItemRequest);
 
 		Map<String, Object> event = new HashMap<>();

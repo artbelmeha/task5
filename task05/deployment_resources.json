@@ -33,15 +33,6 @@
       "${account_id}"
     ]
   },
-  "Events": {
-    "resource_type": "dynamodb_table",
-    "hash_key_name": "id",
-    "hash_key_type": "S",
-    "read_capacity": 1,
-    "write_capacity":1,
-    "global_indexes": [],
-    "autoscaling": []
-  },
   "task5_api": {
     "deploy_stage": "api",
     "resource_type": "api_gateway",
@@ -67,6 +58,15 @@
           "default_error_pattern": true
         }
       }
+    },
+    "Events": {
+      "resource_type": "dynamodb_table",
+      "hash_key_name": "id",
+      "hash_key_type": "S",
+      "read_capacity": 1,
+      "write_capacity":1,
+      "global_indexes": [],
+      "autoscaling": []
     }
   }
 }
