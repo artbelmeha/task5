@@ -12,7 +12,10 @@
             "dynamodb:PutItem",
             "dynamodb:Batch*",
             "dynamodb:UpdateItem",
-            "dynamodb:DeleteItem"
+            "dynamodb:DeleteItem",
+            "ssm:PutParameter",
+            "ssm:GetParameter",
+            "kms:Decrypt"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -36,13 +39,7 @@
   "task5_api": {
     "deploy_stage": "api",
     "resource_type": "api_gateway",
-    "dependencies": [
-      {
-        "resource_name": "api_handler",
-        "resource_type": "lambda"
-      }
-    ]
-  },
+    "dependencies": [],
     "resources": {
       "/events": {
         "enable_cors": true,
@@ -65,20 +62,7 @@
       "hash_key_name": "id",
       "hash_key_type": "S",
       "read_capacity": 5,
-      "write_capacity": 5,
-      "attributes": [
-        {
-          "name": "principalId",
-          "type": "N"
-        },
-        {
-          "name": "createdAt",
-          "type": "S"
-        },
-        {
-          "name": "body",
-          "type": "S"
-        }
-      ]
+      "write_capacity": 5
     }
+  }
 }
