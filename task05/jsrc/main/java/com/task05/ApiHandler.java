@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 @LambdaHandler(lambdaName = "api_handler",
 	roleName = "api_handler-role"
 )
-@DependsOn(resourceType = ResourceType.DYNAMODB_TABLE,
-		name = "Events")
+
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 	private final AmazonDynamoDB dynamoDB;
 
