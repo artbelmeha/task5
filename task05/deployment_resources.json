@@ -70,6 +70,7 @@
     "read_capacity": 1,
     "write_capacity": 1,
     "global_indexes": [],
-    "autoscaling": []
+    "autoscaling": [],
+    "target_table": "Events"
   }
 }
