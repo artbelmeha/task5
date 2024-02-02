@@ -44,7 +44,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
 		Request request = getRequest(event.getBody());
 		Response response = generateApiResponse(request);
-		PutItemRequest putItemRequest = new PutItemRequest("cmtr-76c36f18-Events-test",
+		PutItemRequest putItemRequest = new PutItemRequest("Events",
 				toDynamoDBItem(response));
 		dynamoDB.putItem(putItemRequest);
 		APIGatewayProxyResponseEvent responseEvent = new APIGatewayProxyResponseEvent();
