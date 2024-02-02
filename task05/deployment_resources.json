@@ -36,7 +36,7 @@
       "${account_id}"
     ]
   },
-  "task5_api": {
+  "cmtr-76c36f18-task5_api-test": {
     "resource_type": "api_gateway",
     "deploy_stage": "api",
     "dependencies": [
