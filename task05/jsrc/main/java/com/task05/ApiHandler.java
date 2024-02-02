@@ -49,7 +49,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 		dynamoDB.putItem(putItemRequest);
 		APIGatewayProxyResponseEvent responseEvent = new APIGatewayProxyResponseEvent();
 		responseEvent.setStatusCode(HttpStatus.SC_CREATED);
-		responseEvent.setBody(parseResponse(response));
+		responseEvent.setBody(getResponse(response));
 		return responseEvent;
 	}
 
@@ -59,7 +59,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	}
 
 	@SneakyThrows
-	public String parseResponse(Response response) {
+	public String getResponse(Response response) {
 		return objectMapper.writeValueAsString(response);
 	}
 
