@@ -7,6 +7,8 @@ import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
+import com.syndicate.deployment.annotations.resources.DependsOn;
+import com.syndicate.deployment.model.ResourceType;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 @LambdaHandler(lambdaName = "api_handler",
 	roleName = "api_handler-role"
 )
-
+@DependsOn(resourceType = ResourceType.DYNAMODB_TABLE,
+		name = "Events")
 public class ApiHandler implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 	private final AmazonDynamoDB dynamoDB;
 
