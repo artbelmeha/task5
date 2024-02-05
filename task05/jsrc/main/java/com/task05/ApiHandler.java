@@ -16,12 +16,14 @@ import com.syndicate.deployment.annotations.resources.DependsOn;
 import com.syndicate.deployment.model.ResourceType;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import lombok.SneakyThrows;
 import org.apache.http.HttpStatus;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -75,7 +77,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 		return new Response(201,
 				new Event(UUID.randomUUID().toString(),
 						request.getPrincipalId(),
-						Instant.now().toString(),
+						ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT),
 						request.getContent()));
 	}
 
