@@ -1,7 +1,8 @@
 package com.task05;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -35,17 +36,14 @@ import java.util.UUID;
 @DependsOn(resourceType = ResourceType.DYNAMODB_TABLE,
 		name = "Events")
 public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-	private final AmazonDynamoDB dynamoDB;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
-	public ApiHandler() {
-		dynamoDB = AmazonDynamoDBClient.builder()
-				.withRegion("eu-central-1")
-				.build();
-	}
 
 	@Override
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
+		AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.standard()
+				.withRegion(Regions.EU_CENTRAL_1)
+				.build();
 		Request request = getRequest(event.getBody());
 		Response response = generateApiResponse(request);
 		PutItemRequest putItemRequest = new PutItemRequest("cmtr-76c36f18-Events-test",
