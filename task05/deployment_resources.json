@@ -57,7 +57,7 @@
           "enable_proxy": true,
           "method_request_parameters": {},
           "default_error_pattern": true,
-          "integration_passthrough_behavior": "WHEN_NO_TEMPLATES",
+          "integration_passthrough_behavior": "WHEN_NO_TEMPLATES"
         }
       }
     }
