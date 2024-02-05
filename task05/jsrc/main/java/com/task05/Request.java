@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Request {
-  private Long principalId;
+  private int principalId;
   private Map<String, String> content;
 }

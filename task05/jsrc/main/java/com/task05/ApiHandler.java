@@ -84,7 +84,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	public Map<String, AttributeValue> toDynamoDBItem(Response response) {
 		Map<String, AttributeValue> item = new HashMap<>();
 		item.put("id", new AttributeValue(response.getEvent().getId()));
-		item.put("principalId", new AttributeValue().withN(response.getEvent().getPrincipalId().toString()));
+		item.put("principalId", new AttributeValue().withN(String.valueOf(response.getEvent().getPrincipalId())));
 		item.put("createdAt", new AttributeValue().withS(response.getEvent().getCreatedAt()));
 		item.put("body", new AttributeValue().withM(parseContent(response.getEvent().getBody())));
 		return item;
