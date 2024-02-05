@@ -11,6 +11,8 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syndicate.deployment.annotations.LambdaUrlConfig;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
+import com.syndicate.deployment.annotations.resources.DependsOn;
+import com.syndicate.deployment.model.ResourceType;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
 import java.util.Map.Entry;
@@ -30,6 +32,8 @@ import java.util.UUID;
 		authType = AuthType.NONE,
 		invokeMode = InvokeMode.BUFFERED
 )
+@DependsOn(resourceType = ResourceType.DYNAMODB_TABLE,
+		name = "Events")
 public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 	private final AmazonDynamoDB dynamoDB;
 	private final ObjectMapper objectMapper = new ObjectMapper();
@@ -44,7 +48,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
 		Request request = getRequest(event.getBody());
 		Response response = generateApiResponse(request);
-		PutItemRequest putItemRequest = new PutItemRequest("Events",
+		PutItemRequest putItemRequest = new PutItemRequest("cmtr-76c36f18-Events-test",
 				toDynamoDBItem(response));
 		dynamoDB.putItem(putItemRequest);
 		APIGatewayProxyResponseEvent responseEvent = new APIGatewayProxyResponseEvent();
